@@ -53,3 +53,4 @@ nbdist/
 *.ear
 *.db
 
+dependency-reduced-pom.xml
