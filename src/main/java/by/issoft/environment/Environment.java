@@ -14,10 +14,11 @@ public class Environment implements Device {
 	private final Camera camera;
 	private final Screen screen;
 
-	public Environment(String environmentName, ServoParameters servoParameters) {
+	public Environment(String environmentName, RotationParameters rotationParameters) {
 		switch (environmentName.toLowerCase()) {
 			case "rasp": {
-				servo = new ServoLogging(new GumsServo(servoParameters));
+				int defaultServoPin = 26;
+				servo = new ServoLogging(new GumsServo(defaultServoPin, rotationParameters));
 				camera = new CameraLogging(new NativeCamera());
 				screen = new Screen(480, 320, true);
 				break;

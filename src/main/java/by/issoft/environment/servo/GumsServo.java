@@ -3,16 +3,18 @@ package by.issoft.environment.servo;
 import java.io.IOException;
 
 public class GumsServo implements Servo {
-	private final ServoParameters servoParameters;
+	private final int pin;
+	private final RotationParameters rotationParameters;
 
-	public GumsServo(ServoParameters servoParameters) {
-		this.servoParameters = servoParameters;
+	public GumsServo(int pin, RotationParameters rotationParameters) {
+		this.pin = pin;
+		this.rotationParameters = rotationParameters;
 	}
 
 	@Override
 	public void initialize() {
 		try {
-			Runtime.getRuntime().exec("gpio mode " + servoParameters.pin() + " pwm").waitFor();
+			Runtime.getRuntime().exec("gpio mode " + pin + " pwm").waitFor();
 			Runtime.getRuntime().exec("gpio pwm-ms").waitFor();
 			Runtime.getRuntime().exec("gpio pwmc 192").waitFor();
 			Runtime.getRuntime().exec("gpio pwmr 2000").waitFor();
@@ -24,8 +26,8 @@ public class GumsServo implements Servo {
 	@Override
 	public void rotate(int angle) {
 		try {
-			Runtime.getRuntime().exec("gpio pwm " + servoParameters.pin() + " " + angle).waitFor();
-			Thread.sleep(servoParameters.delay());
+			Runtime.getRuntime().exec("gpio pwm " + pin + " " + angle).waitFor();
+			Thread.sleep(rotationParameters.delay());
 		} catch (IOException | InterruptedException e) {
 			e.printStackTrace();
 		}
@@ -33,11 +35,11 @@ public class GumsServo implements Servo {
 
 	@Override
 	public void push() {
-		rotate(servoParameters.pushAngle());
+		rotate(rotationParameters.pushAngle());
 	}
 
 	@Override
 	public void pull() {
-		rotate(servoParameters.pullAngle());
+		rotate(rotationParameters.pullAngle());
 	}
 }

@@ -1,19 +1,20 @@
 package by.issoft.service.recognition;
 
-import by.issoft.service.authenticate.Authentication;
+import by.issoft.service.authentication.Authentication;
+import by.issoft.service.authentication.AuthenticationInterceptor;
 import feign.*;
 import feign.form.FormEncoder;
 import feign.jackson.JacksonDecoder;
 import feign.okhttp.OkHttpClient;
 import feign.slf4j.Slf4jLogger;
 
+import java.net.URI;
+
 public class ZegumRecognition implements Recognition {
 	private final RecognitionEndpoints recognitionEndpoints;
-	private final Authentication authentication;
 	private RecognizedResult recognizedResult;
 
-	public ZegumRecognition(String serverUrl, Authentication authentication) {
-		this.authentication = authentication;
+	public ZegumRecognition(URI serverUri, Authentication authentication) {
 		if (authentication.token()==null) {
 			authentication.authenticate();
 		}
@@ -24,7 +25,7 @@ public class ZegumRecognition implements Recognition {
 				.logger(new Slf4jLogger(RecognitionEndpoints.class))
 				.logLevel(Logger.Level.FULL)
 				.requestInterceptor(new AuthenticationInterceptor(authentication.token()))
-				.target(RecognitionEndpoints.class, serverUrl);
+				.target(RecognitionEndpoints.class, serverUri.toASCIIString());
 	}
 
 	@Override
