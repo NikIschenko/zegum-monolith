@@ -11,7 +11,7 @@ import java.util.Objects;
 public class GreetingFrame extends FrameNode {
 	private final Camera camera;
 
-	public GreetingFrame(Camera camera) {
+	public GreetingFrame(final Camera camera) {
 		this.camera = camera;
 		// show CountDown frame on click on screen
 		this.frame().addMouseListener(new MouseAdapter() {
@@ -25,7 +25,7 @@ public class GreetingFrame extends FrameNode {
 	}
 
 	private void buildInterface() {
-		WebcamPanel webcamPanel = buildWebcamPanel(camera.camera());
+		final WebcamPanel webcamPanel = buildWebcamPanel(camera.camera());
 		webcamPanel.add(buildGreetingLabel());
 		this.frame().add(webcamPanel);
 	}
@@ -35,7 +35,7 @@ public class GreetingFrame extends FrameNode {
 		// nothing
 	}
 
-	private WebcamPanel buildWebcamPanel(com.github.sarxos.webcam.Webcam webcam) {
+	private WebcamPanel buildWebcamPanel(final com.github.sarxos.webcam.Webcam webcam) {
 		WebcamPanel webcamPanel = new WebcamPanel(webcam);
 		webcamPanel.setFPSDisplayed(false);
 		webcamPanel.setDisplayDebugInfo(false);

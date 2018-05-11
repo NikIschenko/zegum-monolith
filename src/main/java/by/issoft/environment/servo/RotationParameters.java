@@ -5,13 +5,13 @@ public class RotationParameters {
 	private final int pullAngle;
 	private final int delay;
 
-	public RotationParameters(int pushAngle, int pullAngle, int delay) {
+	public RotationParameters(final int pushAngle, final int pullAngle, final int delay) {
 		this.delay = delay;
 		this.pushAngle = pushAngle;
 		this.pullAngle = pullAngle;
 	}
 
-	public RotationParameters(int pushAngle, int pullAngle) {
+	public RotationParameters(final int pushAngle, final int pullAngle) {
 		this(pushAngle, pullAngle, 2000);
 	}
 

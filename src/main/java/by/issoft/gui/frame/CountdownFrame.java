@@ -20,7 +20,7 @@ public class CountdownFrame extends FrameNode {
 
 	private ScalableLabel countdownLabel;
 
-	public CountdownFrame(Camera camera) {
+	public CountdownFrame(final Camera camera) {
 		this.camera = camera;
 		this.timer = new Timer(TIME_STEP, this.onTimerEvent());
 		buildInterface();
@@ -28,7 +28,7 @@ public class CountdownFrame extends FrameNode {
 
 	private void buildInterface() {
 		countdownLabel = buildCountdownLabel();
-		WebcamPanel webcamPanel = new WebcamPanel(camera.camera());
+		final WebcamPanel webcamPanel = new WebcamPanel(camera.camera());
 		webcamPanel.add(countdownLabel);
 		this.frame().add(webcamPanel);
 	}

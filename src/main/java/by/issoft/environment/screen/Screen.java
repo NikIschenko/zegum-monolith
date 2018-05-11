@@ -5,7 +5,7 @@ public class Screen {
     private final int height;
     private final boolean fullScreen;
 
-    public Screen(int width, int height, boolean fullScreen) {
+    public Screen(final int width, final int height, final boolean fullScreen) {
         this.width = width;
         this.height = height;
         this.fullScreen = fullScreen;

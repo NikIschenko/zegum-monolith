@@ -7,12 +7,12 @@ import feign.RequestTemplate;
 public class AuthenticationInterceptor implements RequestInterceptor {
 	private final String authenticationToken;
 
-	public AuthenticationInterceptor(String authenticationToken) {
+	public AuthenticationInterceptor(final String authenticationToken) {
 		this.authenticationToken = authenticationToken;
 	}
 
 	@Override
-	public void apply(RequestTemplate requestTemplate) {
+	public void apply(final RequestTemplate requestTemplate) {
 		requestTemplate.header("Authorization", "Bearer " + authenticationToken);
 	}
 }

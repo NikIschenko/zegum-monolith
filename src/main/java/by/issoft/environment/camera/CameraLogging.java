@@ -11,13 +11,13 @@ public class CameraLogging implements Camera {
 	private final Camera camera;
 	private final Logger logger;
 
-	public CameraLogging(Camera camera, Logger logger) {
+	public CameraLogging(final Camera camera, final Logger logger) {
 		this.camera = camera;
 		this.logger = logger;
 		logger.info("Logging by camera class '" + this.getClass().getSimpleName() + "' was started");
 	}
 
-	public CameraLogging(Camera camera) {
+	public CameraLogging(final Camera camera) {
 		this(camera,  LoggerFactory.getLogger(camera.getClass()));
 	}
 

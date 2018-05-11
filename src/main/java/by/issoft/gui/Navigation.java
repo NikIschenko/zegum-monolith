@@ -12,14 +12,14 @@ public class Navigation {
 	private final Environment environment;
 	private final Recognition recognition;
 
-	public Navigation(Environment environment, Recognition recognition) {
+	public Navigation(final Environment environment, final Recognition recognition) {
 		this.environment = environment;
 		this.recognition = recognition;
 		this.frames = orderedFrames();
 	}
 
 	private DoubleLinkedList<FrameNode> orderedFrames() {
-		DoubleLinkedList<FrameNode> orderedFrames = new DoubleLinkedList<>();
+		final DoubleLinkedList<FrameNode> orderedFrames = new DoubleLinkedList<>();
 		orderedFrames.addLast(new GreetingFrame(environment.camera()));
 		orderedFrames.addLast(new CountdownFrame(environment.camera()));
 		orderedFrames.addLast(new SpinnerFrame(environment.camera(), recognition));

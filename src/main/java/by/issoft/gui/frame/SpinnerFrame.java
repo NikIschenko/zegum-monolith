@@ -22,11 +22,11 @@ public class SpinnerFrame extends FrameNode {
 	}
 
 	private void buildInterface() {
-		JPanel backgroundPanel = new JPanel();
+		final JPanel backgroundPanel = new JPanel();
 		backgroundPanel.setLayout(new GridBagLayout());
 		backgroundPanel.setBackground(Color.WHITE);
 
-		JLabel spinnerComponent = buildSpinnerComponent();
+		final JLabel spinnerComponent = buildSpinnerComponent();
 		backgroundPanel.add(spinnerComponent);
 
 		this.frame().add(backgroundPanel);

@@ -9,17 +9,17 @@ public class ServoLogging implements Servo {
 	private final Servo servo;
 	private final Logger logger;
 
-	public ServoLogging(Servo servo, Logger logger) {
+	public ServoLogging(final Servo servo, final Logger logger) {
 		this.servo = servo;
 		this.logger = logger;
 	}
 
-	public ServoLogging(Servo servo) {
+	public ServoLogging(final Servo servo) {
 		this(servo, LoggerFactory.getLogger(servo.getClass()));
 	}
 
 	@Override
-	public void rotate(int angle) {
+	public void rotate(final int angle) {
 		servo.rotate(angle);
 		logger.info("Servo is rotated to angle = " + angle + "°");
 	}
@@ -34,6 +34,12 @@ public class ServoLogging implements Servo {
 	public void pull() {
 		servo.pull();
 		logger.info("Servo is in a pulled state");
+	}
+
+	@Override
+	public void pushAndPull() {
+		servo.pushAndPull();
+		logger.info("Servo was pushed and pulled");
 	}
 
 	@Override

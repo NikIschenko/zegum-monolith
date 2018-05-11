@@ -6,7 +6,7 @@ public class GumsServo implements Servo {
 	private final int pin;
 	private final RotationParameters rotationParameters;
 
-	public GumsServo(int pin, RotationParameters rotationParameters) {
+	public GumsServo(final int pin, final RotationParameters rotationParameters) {
 		this.pin = pin;
 		this.rotationParameters = rotationParameters;
 	}
@@ -17,14 +17,13 @@ public class GumsServo implements Servo {
 			Runtime.getRuntime().exec("gpio mode " + pin + " pwm").waitFor();
 			Runtime.getRuntime().exec("gpio pwm-ms").waitFor();
 			Runtime.getRuntime().exec("gpio pwmc 192").waitFor();
-			Runtime.getRuntime().exec("gpio pwmr 2000").waitFor();
 		} catch (InterruptedException | IOException e) {
 			e.printStackTrace();
 		}
 	}
 
 	@Override
-	public void rotate(int angle) {
+	public void rotate(final int angle) {
 		try {
 			Runtime.getRuntime().exec("gpio pwm " + pin + " " + angle).waitFor();
 			Thread.sleep(rotationParameters.delay());
@@ -41,5 +40,16 @@ public class GumsServo implements Servo {
 	@Override
 	public void pull() {
 		rotate(rotationParameters.pullAngle());
+	}
+
+	@Override
+	public void pushAndPull() {
+		push();
+		try {
+			Thread.sleep(rotationParameters.delay());
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		pull();
 	}
 }

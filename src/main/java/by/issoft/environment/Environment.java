@@ -14,7 +14,7 @@ public class Environment implements Device {
 	private final Camera camera;
 	private final Screen screen;
 
-	public Environment(String environmentName, RotationParameters rotationParameters) {
+	public Environment(final String environmentName, final RotationParameters rotationParameters) {
 		switch (environmentName.toLowerCase()) {
 			case "rasp": {
 				int defaultServoPin = 26;

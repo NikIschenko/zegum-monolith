@@ -13,8 +13,6 @@ import com.beust.jcommander.Parameter;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-import static java.lang.System.exit;
-
 public class ZegumApplication {
 	// required
 	@Parameter(names={"--user", "-u"}, description = "Username for connection to backend", required = true)
@@ -23,17 +21,17 @@ public class ZegumApplication {
 	private String password;
 	// custom
 	@Parameter(names={"--environment", "-e"}, description = "Environment: [rasp, desk]")
-	private String environment = "desk";
+	private String environment = "rasp";
 	@Parameter(names={"--initialize", "-i"}, description = "Initialize device by default")
 	private boolean initialize = false;
-	@Parameter(names={"--pushAngle"}, description = "Servo's pushAngle angle")
-	private int pushAngle = 220;
-	@Parameter(names={"--pullAngle"}, description = "Servo's pullAngle angle")
-	private int pullAngle = 155;
-	@Parameter(names = {"--server, -s"}, description = "Zegum server ip")
-	private String server = "40.68.189.184:7070";
+	@Parameter(names={"--push"}, description = "Servo's pushAngle angle")
+	private int pushAngle = 100;
+	@Parameter(names={"--pull"}, description = "Servo's pullAngle angle")
+	private int pullAngle = 30;
+	@Parameter(names = {"--server", "-s"}, description = "Zegum server ip")
+	private String server = "zmile-back.gq:8080";
 
-	public static void main(String ... argv) throws URISyntaxException {
+	public static void main(final String ... argv) throws URISyntaxException {
 		ZegumApplication main = new ZegumApplication();
 		// parse input arguments to private variables
 		JCommander.newBuilder().addObject(main).build().parse(argv);
@@ -42,17 +40,17 @@ public class ZegumApplication {
 
 	private void run() throws URISyntaxException {
 		// server URI
-		URI zegumServerUri = new URI("http://" + server + "/");
+		final URI zegumServerUri = new URI("http://" + server + "/");
 		// backend services
-		Authentication authentication = new JwtAuthentication(zegumServerUri, login, password);
-		Recognition recognition = new ZegumRecognition(zegumServerUri, authentication);
+		final Authentication authentication = new JwtAuthentication(zegumServerUri, login, password);
+		final Recognition recognition = new ZegumRecognition(zegumServerUri, authentication);
 		// environment devices initialization
-		Environment environment = new Environment(this.environment, new RotationParameters(pushAngle, pullAngle));
+		final Environment environment = new Environment(this.environment, new RotationParameters(pushAngle, pullAngle));
 		if (initialize) {
 			environment.initialize();
 		}
 		// gui interface
-		Navigation navigation = new Navigation(environment, recognition);
+		final Navigation navigation = new Navigation(environment, recognition);
 		navigation.showFirstFrame();
 	}
 

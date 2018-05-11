@@ -19,7 +19,7 @@ public class ProcessedFrame extends FrameNode {
 	private final Recognition recognition;
 	private final Servo servo;
 
-	public ProcessedFrame(Servo servo, Recognition recognition) {
+	public ProcessedFrame(final Servo servo, final Recognition recognition) {
 		this.servo = servo;
 		this.recognition = recognition;
 		// -- listeners
@@ -35,7 +35,7 @@ public class ProcessedFrame extends FrameNode {
 
 	private void buildInterface() {
 		processedPhoto = new JLabel();
-		JPanel backgroundPanel = buildBackgroundPanel();
+		final JPanel backgroundPanel = buildBackgroundPanel();
 		backgroundPanel.add(processedPhoto);
 		this.frame().add(backgroundPanel);
 	}
@@ -47,10 +47,10 @@ public class ProcessedFrame extends FrameNode {
 		setProcessedPhotoByUrl(recognition.recognitionResult().processedImageUrl());
 	}
 
-	private void setProcessedPhotoByUrl(String urlString) {
+	private void setProcessedPhotoByUrl(final String urlString) {
 		try {
-			BufferedImage photo = ImageIO.read(new URL(urlString));
-			BufferedImage resizedPhoto = Scalr.resize(photo, Scalr.Mode.FIT_TO_HEIGHT, this.frame().getWidth(), this.frame().getHeight());
+			final BufferedImage photo = ImageIO.read(new URL(urlString));
+			final BufferedImage resizedPhoto = Scalr.resize(photo, Scalr.Mode.FIT_TO_HEIGHT, this.frame().getWidth(), this.frame().getHeight());
 			processedPhoto.setIcon(new ImageIcon(resizedPhoto));
 		} catch (IOException e) {
 			e.printStackTrace();

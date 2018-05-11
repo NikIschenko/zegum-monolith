@@ -8,7 +8,11 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 public class NativeCamera implements Camera {
-	private Webcam webcam;
+	private final Webcam webcam;
+
+	static {
+		Webcam.setDriver(new V4l4jDriver());
+	}
 
 	public NativeCamera() {
 		Webcam webcam = Webcam.getDefault();
@@ -28,8 +32,7 @@ public class NativeCamera implements Camera {
 
 	@Override
 	public void initialize() throws IOException, InterruptedException {
-		Webcam.setDriver(new V4l4jDriver());
-		// set camera
+		// custom webcam driver for ARM devices
 		Runtime.getRuntime().exec("sudo modprobe bcm2835-v4l2").waitFor();
 	}
 }

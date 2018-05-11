@@ -7,5 +7,5 @@ import feign.RequestLine;
 public interface RecognitionEndpoints {
 	@RequestLine("POST /api/recognize/monolith")
 	@Headers("Content-Type: multipart/form-data")
-	RecognizedResult uploadPhoto(@Param("file") byte[] file);
+	RecognizedResult uploadPhoto(final @Param("file") byte[] file);
 }

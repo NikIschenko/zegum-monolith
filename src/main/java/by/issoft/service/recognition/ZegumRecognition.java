@@ -14,7 +14,7 @@ public class ZegumRecognition implements Recognition {
 	private final RecognitionEndpoints recognitionEndpoints;
 	private RecognizedResult recognizedResult;
 
-	public ZegumRecognition(URI serverUri, Authentication authentication) {
+	public ZegumRecognition(final URI serverUri, final Authentication authentication) {
 		if (authentication.token()==null) {
 			authentication.authenticate();
 		}
@@ -29,7 +29,7 @@ public class ZegumRecognition implements Recognition {
 	}
 
 	@Override
-	public void uploadPhoto(byte[] file) {
+	public void uploadPhoto(final byte[] file) {
 		// TODO: add 403 error processing
 		recognizedResult = recognitionEndpoints.uploadPhoto(file);
 	}

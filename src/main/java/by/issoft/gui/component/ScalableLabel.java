@@ -4,16 +4,17 @@ import javax.swing.*;
 import java.awt.*;
 
 public class ScalableLabel extends JLabel {
-	public ScalableLabel(String title) {
+	public ScalableLabel(final String title) {
 		super(title);
 	}
 
-	public void scaleToBoxSize(int width, int height) {
+	public void scaleToBoxSize(final int width, final int height) {
 		Font labelFont = this.getFont();
-		int stringWidth = this.getFontMetrics(labelFont).stringWidth(this.getText());
-		double widthRatio = (double) width / (double) stringWidth;
-		int newFontSize = (int) (labelFont.getSize() * widthRatio);
-		int fontSizeToUse = Math.min(newFontSize, height);
-		this.setFont(new Font(labelFont.getName(), Font.PLAIN, fontSizeToUse));
+
+		final int stringWidth = this.getFontMetrics(labelFont).stringWidth(this.getText());
+		final double widthRatio = (double) width / (double) stringWidth;
+		final int newFontSize = (int) (labelFont.getSize() * widthRatio);
+
+		this.setFont(new Font(labelFont.getName(), Font.PLAIN, Math.min(newFontSize, height)));
 	}
 }
