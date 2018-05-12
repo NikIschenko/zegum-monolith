@@ -12,7 +12,7 @@ public class RotationParameters {
 	}
 
 	public RotationParameters(final int pushAngle, final int pullAngle) {
-		this(pushAngle, pullAngle, 2000);
+		this(pushAngle, pullAngle, 500);
 	}
 
 	public int pushAngle() {

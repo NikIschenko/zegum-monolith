@@ -42,9 +42,10 @@ public class ProcessedFrame extends FrameNode {
 
 	@Override
 	void onShow() {
-		IntStream.range(0, recognition.recognitionResult().smileCount())
-				.forEach(s-> servo.pushAndPull());
 		setProcessedPhotoByUrl(recognition.recognitionResult().processedImageUrl());
+		int count = 2;//recognition.recognitionResult().smileCount();
+		new Thread(()-> IntStream.range(0, count)
+				.forEach(s -> servo.pushAndPull())).start();
 	}
 
 	private void setProcessedPhotoByUrl(final String urlString) {

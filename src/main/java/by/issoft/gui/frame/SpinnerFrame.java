@@ -38,11 +38,10 @@ public class SpinnerFrame extends FrameNode {
 	}
 
 	private void sendToRecognition(BufferedImage photo) {
-		Thread uploadThread = new Thread(()->{
+		new Thread(()->{
 			recognition.uploadPhoto(bufferedImageToByteArray(photo));
 			showNextFrame();
-		});
-		uploadThread.start();
+		}).start();
 	}
 
 	private byte[] bufferedImageToByteArray(BufferedImage photo) {

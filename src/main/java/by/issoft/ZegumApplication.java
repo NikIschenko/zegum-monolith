@@ -29,7 +29,7 @@ public class ZegumApplication {
 	@Parameter(names={"--pull"}, description = "Servo's pullAngle angle")
 	private int pullAngle = 30;
 	@Parameter(names = {"--server", "-s"}, description = "Zegum server ip")
-	private String server = "zmile-back.gq:8080";
+	private String server = "52.136.229.133:8080";
 
 	public static void main(final String ... argv) throws URISyntaxException {
 		ZegumApplication main = new ZegumApplication();
