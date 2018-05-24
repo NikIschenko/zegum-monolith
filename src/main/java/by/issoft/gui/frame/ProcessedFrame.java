@@ -1,5 +1,6 @@
 package by.issoft.gui.frame;
 
+import by.issoft.environment.Environment;
 import by.issoft.environment.servo.Servo;
 import by.issoft.service.recognition.Recognition;
 import org.imgscalr.Scalr;
@@ -17,10 +18,11 @@ import java.util.stream.IntStream;
 public class ProcessedFrame extends FrameNode {
 	private JLabel processedPhoto;
 	private final Recognition recognition;
-	private final Servo servo;
+	private final Environment environment;
 
-	public ProcessedFrame(final Servo servo, final Recognition recognition) {
-		this.servo = servo;
+	public ProcessedFrame(final Environment environment, final Recognition recognition) {
+		super(environment.environmentType());
+		this.environment = environment;
 		this.recognition = recognition;
 		// -- listeners
 		this.frame().addMouseListener(new MouseAdapter() {
@@ -44,8 +46,7 @@ public class ProcessedFrame extends FrameNode {
 	void onShow() {
 		setProcessedPhotoByUrl(recognition.recognitionResult().processedImageUrl());
 		int count = 2;//recognition.recognitionResult().smileCount();
-		new Thread(()-> IntStream.range(0, count)
-				.forEach(s -> servo.pushAndPull())).start();
+		new Thread(()-> IntStream.range(0, count).forEach(s -> environment.servo().pushAndPull())).start();
 	}
 
 	private void setProcessedPhotoByUrl(final String urlString) {

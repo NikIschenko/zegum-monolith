@@ -20,19 +20,14 @@ public class Navigation {
 
 	private DoubleLinkedList<FrameNode> orderedFrames() {
 		final DoubleLinkedList<FrameNode> orderedFrames = new DoubleLinkedList<>();
-		orderedFrames.addLast(new GreetingFrame(environment.camera()));
-		orderedFrames.addLast(new CountdownFrame(environment.camera()));
-		orderedFrames.addLast(new SpinnerFrame(environment.camera(), recognition));
-		orderedFrames.addLast(new ProcessedFrame(environment.servo(), recognition));
+		orderedFrames.addLast(new GreetingFrame(environment));
+		orderedFrames.addLast(new CountdownFrame(environment));
+		orderedFrames.addLast(new SpinnerFrame(environment, recognition));
+		orderedFrames.addLast(new ProcessedFrame(environment, recognition));
 
 		FrameNode node = orderedFrames.getFirst();
 		while (node != null) {
-			node.frame().setSize(environment.screen().width(), environment.screen().height());
-			if (environment.screen().fullScreen()) {
-				node.frame().setExtendedState(JFrame.MAXIMIZED_BOTH);
-				node.frame().setUndecorated(true);
-			}
-			node.frame().setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
 			node = (FrameNode) node.next;
 		}
 

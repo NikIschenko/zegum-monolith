@@ -1,5 +1,6 @@
 package by.issoft.gui.frame;
 
+import by.issoft.environment.Environment;
 import by.issoft.environment.camera.Camera;
 import by.issoft.gui.component.ScalableLabel;
 import com.github.sarxos.webcam.WebcamPanel;
@@ -15,20 +16,21 @@ public class CountdownFrame extends FrameNode {
 	private long START_TIME = -1;
 	private final String TIME_FORMAT = "s:SSS";
 
-	private final Camera camera;
+	private final Environment environment;
 	private final Timer timer;
 
 	private ScalableLabel countdownLabel;
 
-	public CountdownFrame(final Camera camera) {
-		this.camera = camera;
+	public CountdownFrame(final Environment environment) {
+		super(environment.environmentType());
+		this.environment = environment;
 		this.timer = new Timer(TIME_STEP, this.onTimerEvent());
 		buildInterface();
 	}
 
 	private void buildInterface() {
 		countdownLabel = buildCountdownLabel();
-		final WebcamPanel webcamPanel = new WebcamPanel(camera.camera());
+		final WebcamPanel webcamPanel = new WebcamPanel(environment.camera().webcam());
 		webcamPanel.add(countdownLabel);
 		this.frame().add(webcamPanel);
 	}

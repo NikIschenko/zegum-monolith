@@ -15,13 +15,13 @@ public class WebCamera implements Camera {
 	}
 
 	@Override
-	public Webcam camera() {
+	public Webcam webcam() {
 		return webcam;
 	}
 
 	@Override
 	public BufferedImage photo() {
-		return camera().getImage();
+		return webcam().getImage();
 	}
 
 	@Override

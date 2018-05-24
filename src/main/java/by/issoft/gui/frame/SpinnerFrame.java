@@ -1,5 +1,6 @@
 package by.issoft.gui.frame;
 
+import by.issoft.environment.Environment;
 import by.issoft.service.recognition.Recognition;
 import by.issoft.environment.camera.Camera;
 
@@ -12,11 +13,12 @@ import java.io.IOException;
 import java.util.Objects;
 
 public class SpinnerFrame extends FrameNode {
-	private final Camera camera;
+	private final Environment environment;
 	private final Recognition recognition;
 
-	public SpinnerFrame(Camera camera, Recognition recognition) {
-		this.camera = camera;
+	public SpinnerFrame(final Environment environment, final Recognition recognition) {
+		super(environment.environmentType());
+		this.environment = environment;
 		this.recognition = recognition;
 		buildInterface();
 	}
@@ -34,7 +36,7 @@ public class SpinnerFrame extends FrameNode {
 
 	@Override
 	void onShow() {
-		sendToRecognition(camera.photo());
+		sendToRecognition(environment.camera().photo());
 	}
 
 	private void sendToRecognition(BufferedImage photo) {

@@ -1,6 +1,7 @@
 package by.issoft;
 
 import by.issoft.environment.Environment;
+import by.issoft.environment.EnvironmentType;
 import by.issoft.environment.servo.RotationParameters;
 import by.issoft.gui.Navigation;
 import by.issoft.service.authentication.Authentication;
@@ -17,19 +18,19 @@ public class ZegumApplication {
 	// required
 	@Parameter(names={"--user", "-u"}, description = "Username for connection to backend", required = true)
 	private String login;
-	@Parameter(names={"--password", "-p"}, description = "User's password for connection to backend", required = true, password = true)
+	@Parameter(names={"--pass", "-p"}, description = "User's password for connection to backend", required = true, password = true)
 	private String password;
 	// custom
-	@Parameter(names={"--environment", "-e"}, description = "Environment: [rasp, desk]")
-	private String environment = "rasp";
-	@Parameter(names={"--initialize", "-i"}, description = "Initialize device by default")
+	@Parameter(names={"--env", "-e"})
+	private EnvironmentType environment;
+	@Parameter(names={"--init", "-i"}, description = "Initialize device by default")
 	private boolean initialize = false;
 	@Parameter(names={"--push"}, description = "Servo's pushAngle angle")
 	private int pushAngle = 100;
 	@Parameter(names={"--pull"}, description = "Servo's pullAngle angle")
 	private int pullAngle = 30;
 	@Parameter(names = {"--server", "-s"}, description = "Zegum server ip")
-	private String server = "52.136.229.133:8080";
+    private String server = "zmile-back.gq:8080";
 
 	public static void main(final String ... argv) throws URISyntaxException {
 		ZegumApplication main = new ZegumApplication();

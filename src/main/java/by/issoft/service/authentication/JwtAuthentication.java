@@ -30,7 +30,7 @@ public class JwtAuthentication implements Authentication {
 
 	@Override
 	public void authenticate() {
-		jwtToken = authenticationEndpoints.authenticate(username, password, true);
+		jwtToken = authenticationEndpoints.authenticate(username, password, false);
 	}
 
 	@Override

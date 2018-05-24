@@ -14,7 +14,7 @@ public class CameraLogging implements Camera {
 	public CameraLogging(final Camera camera, final Logger logger) {
 		this.camera = camera;
 		this.logger = logger;
-		logger.info("Logging by camera class '" + this.getClass().getSimpleName() + "' was started");
+		logger.info("Logging by webcam class '" + this.getClass().getSimpleName() + "' was started");
 	}
 
 	public CameraLogging(final Camera camera) {
@@ -22,15 +22,15 @@ public class CameraLogging implements Camera {
 	}
 
 	@Override
-	public Webcam camera() {
-		return camera.camera();
+	public Webcam webcam() {
+		return camera.webcam();
 	}
 
 	@Override
 	public BufferedImage photo() {
 		BufferedImage photo = camera.photo();
 		logger.info("Photo with resolution: "
-				+ camera.camera().getViewSize().width + "x" + camera.camera().getViewSize().height
+				+ camera.webcam().getViewSize().width + "x" + camera.webcam().getViewSize().height
 				+ " was taken");
 		return photo;
 	}

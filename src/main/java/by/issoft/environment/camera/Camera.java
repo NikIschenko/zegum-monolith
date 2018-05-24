@@ -6,6 +6,6 @@ import com.github.sarxos.webcam.Webcam;
 import java.awt.image.BufferedImage;
 
 public interface Camera extends Device {
-	Webcam camera();
+	Webcam webcam();
 	BufferedImage photo();
 }

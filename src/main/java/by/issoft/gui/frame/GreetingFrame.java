@@ -1,6 +1,6 @@
 package by.issoft.gui.frame;
 
-import by.issoft.environment.camera.Camera;
+import by.issoft.environment.Environment;
 import com.github.sarxos.webcam.WebcamPanel;
 
 import javax.swing.*;
@@ -9,10 +9,11 @@ import java.awt.event.MouseEvent;
 import java.util.Objects;
 
 public class GreetingFrame extends FrameNode {
-	private final Camera camera;
+	private final Environment environment;
 
-	public GreetingFrame(final Camera camera) {
-		this.camera = camera;
+	public GreetingFrame(final Environment environment) {
+		super(environment.environmentType());
+		this.environment = environment;
 		// show CountDown frame on click on screen
 		this.frame().addMouseListener(new MouseAdapter() {
 			@Override
@@ -25,7 +26,7 @@ public class GreetingFrame extends FrameNode {
 	}
 
 	private void buildInterface() {
-		final WebcamPanel webcamPanel = buildWebcamPanel(camera.camera());
+        final WebcamPanel webcamPanel = new WebcamPanel(environment.camera().webcam());
 		webcamPanel.add(buildGreetingLabel());
 		this.frame().add(webcamPanel);
 	}
