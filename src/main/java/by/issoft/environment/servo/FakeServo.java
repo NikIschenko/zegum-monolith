@@ -5,7 +5,7 @@ public class FakeServo implements Servo {
 	public void initialize() { }
 
 	@Override
-	public void rotate(final int angle) {	}
+	public void rotate(final int angle) { }
 
 	@Override
 	public void push() { }

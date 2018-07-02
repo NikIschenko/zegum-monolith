@@ -36,14 +36,9 @@ public class CameraLogging implements Camera {
 	}
 
 	@Override
-	public void initialize() {
-		logger.info("Camera's initialization starts");
-		try {
-			camera.initialize();
-		} catch (IOException | InterruptedException e) {
-			e.printStackTrace();
-			logger.error("Camera can't be initialized");
-		}
-		logger.info("Camera's initialization was done");
+	public void initialize() throws IOException, InterruptedException {
+		logger.info("Camera's initialize starts");
+		camera.initialize();
+		logger.info("Camera's initialize was done");
 	}
 }

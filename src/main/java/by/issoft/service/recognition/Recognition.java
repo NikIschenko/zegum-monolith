@@ -1,8 +1,9 @@
 package by.issoft.service.recognition;
 
-import feign.Param;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 public interface Recognition {
-	void uploadPhoto(final @Param("file") byte[] file);
+	void uploadPhoto(BufferedImage photo) throws IOException;
 	RecognizedResult recognitionResult();
 }

@@ -7,27 +7,25 @@ import com.github.sarxos.webcam.ds.v4l4j.V4l4jDriver;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
-public class NativeCamera implements Camera {
-	private final Webcam webcam;
+public class PiCamera implements Camera {
+	private final Camera camera;
 
 	static {
 		Webcam.setDriver(new V4l4jDriver());
 	}
 
-	public NativeCamera() {
-		Webcam webcam = Webcam.getDefault();
-		webcam.setViewSize(WebcamResolution.VGA.getSize());
-		this.webcam = webcam;
+	public PiCamera(Camera camera) {
+		this.camera = camera;
 	}
 
 	@Override
 	public Webcam webcam() {
-		return webcam;
+		return camera.webcam();
 	}
 
 	@Override
 	public BufferedImage photo() {
-		return webcam().getImage();
+		return camera.webcam().getImage();
 	}
 
 	@Override

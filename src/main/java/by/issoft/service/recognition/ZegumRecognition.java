@@ -8,6 +8,10 @@ import feign.jackson.JacksonDecoder;
 import feign.okhttp.OkHttpClient;
 import feign.slf4j.Slf4jLogger;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.net.URI;
 
 public class ZegumRecognition implements Recognition {
@@ -28,13 +32,11 @@ public class ZegumRecognition implements Recognition {
 				.target(RecognitionEndpoints.class, serverUri.toASCIIString());
 	}
 
-	@Override
-	public void uploadPhoto(final byte[] file) {
-		// TODO: add 403 error processing
-		recognizedResult = recognitionEndpoints.uploadPhoto(file);
+	public void uploadPhoto(BufferedImage photo) throws IOException {
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		ImageIO.write(photo, "jpg", baos);
+		recognizedResult = recognitionEndpoints.uploadPhoto(baos.toByteArray());
 	}
-
-	@Override
 	public RecognizedResult recognitionResult() {
 		return recognizedResult;
 	}

@@ -43,14 +43,9 @@ public class ServoLogging implements Servo {
 	}
 
 	@Override
-	public void initialize() {
-		logger.info("Servo's initialization starts");
-		try {
-			servo.initialize();
-		} catch (IOException | InterruptedException e) {
-			e.printStackTrace();
-			logger.error("Servo can't be initialized");
-		}
-		logger.info("Servo's initialization was done");
+	public void initialize() throws IOException, InterruptedException {
+		logger.info("Servo's initialize starts");
+		servo.initialize();
+		logger.info("Servo's initialize was done");
 	}
 }
