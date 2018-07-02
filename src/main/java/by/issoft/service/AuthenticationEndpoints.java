@@ -1,5 +1,6 @@
-package by.issoft.service.authentication;
+package by.issoft.service;
 
+import by.issoft.service.dto.JwtToken;
 import feign.Headers;
 import feign.Param;
 import feign.RequestLine;

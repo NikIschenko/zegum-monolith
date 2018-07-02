@@ -1,5 +1,6 @@
-package by.issoft.service.recognition;
+package by.issoft.service;
 
+import by.issoft.service.dto.RecognizedResult;
 import feign.Headers;
 import feign.Param;
 import feign.RequestLine;

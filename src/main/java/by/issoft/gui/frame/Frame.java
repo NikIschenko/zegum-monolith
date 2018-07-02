@@ -1,6 +1,8 @@
 package by.issoft.gui.frame;
 
 public interface Frame {
-    void show();
+    void showFrame();
+    void hideFrame();
+
     void createComponents();
 }

@@ -1,20 +1,19 @@
 package by.issoft.environment.servo;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.IOException;
 
-public class GumsServo implements Servo {
-	private final int pin;
-	private final RotationParameters rotationParameters;
+import static by.issoft.ApplicationVariables.*;
 
-	public GumsServo(final int pin, final RotationParameters rotationParameters) {
-		this.pin = pin;
-		this.rotationParameters = rotationParameters;
-	}
+public class GumsServo implements Servo {
+	private Logger log = LoggerFactory.getLogger(GumsServo.class);
 
 	@Override
 	public void initialize() {
 		try {
-			Runtime.getRuntime().exec("gpio mode " + pin + " pwm").waitFor();
+			Runtime.getRuntime().exec("gpio mode " + PIN + " pwm").waitFor();
 			Runtime.getRuntime().exec("gpio pwm-ms").waitFor();
 			Runtime.getRuntime().exec("gpio pwmc 192").waitFor();
 		} catch (InterruptedException | IOException e) {
@@ -23,33 +22,37 @@ public class GumsServo implements Servo {
 	}
 
 	@Override
-	public void rotate(final int angle) {
+	public void rotate(int angle) {
 		try {
-			Runtime.getRuntime().exec("gpio pwm " + pin + " " + angle).waitFor();
-			Thread.sleep(rotationParameters.delay());
+			Runtime.getRuntime().exec("gpio pwm " + PIN + " " + angle).waitFor();
+			Thread.sleep(DELAY);
 		} catch (IOException | InterruptedException e) {
 			e.printStackTrace();
 		}
+		log.info("Servo is rotated to angle = " + angle + "°");
 	}
 
 	@Override
 	public void push() {
-		rotate(rotationParameters.pushAngle());
+		rotate(PUSH_ANGLE);
+		log.info("Servo is in a pushed state");
 	}
 
 	@Override
 	public void pull() {
-		rotate(rotationParameters.pullAngle());
+		rotate(PULL_ANGLE);
+		log.info("Servo is in a pulled state");
 	}
 
 	@Override
 	public void pushAndPull() {
 		push();
 		try {
-			Thread.sleep(rotationParameters.delay());
+			Thread.sleep(DELAY);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 		pull();
+		log.info("Servo was pushed and pulled");
 	}
 }

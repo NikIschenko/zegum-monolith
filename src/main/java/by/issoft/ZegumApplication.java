@@ -1,29 +1,16 @@
 package by.issoft;
 
-import by.issoft.environment.DesktopEnvironment;
-import by.issoft.environment.Environment;
 import by.issoft.environment.EnvironmentType;
-import by.issoft.environment.RaspberryEnvironment;
-import by.issoft.environment.servo.RotationParameters;
-import by.issoft.gui.carousel.Carousel;
 import by.issoft.gui.frame.*;
 import by.issoft.gui.frame.Frame;
-import by.issoft.gui.frame.carousel.FramesCarousel;
-import by.issoft.gui.frame.carousel.item.Countdown;
-import by.issoft.gui.frame.carousel.item.Greeting;
-import by.issoft.gui.frame.carousel.item.Processed;
-import by.issoft.gui.frame.carousel.item.Spinner;
-import by.issoft.service.authentication.Authentication;
-import by.issoft.service.authentication.JwtAuthentication;
-import by.issoft.service.recognition.Recognition;
-import by.issoft.service.recognition.ZegumRecognition;
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
 
-import java.awt.*;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+
+import static by.issoft.ApplicationVariables.*;
 
 public class ZegumApplication {
     // required
@@ -43,7 +30,7 @@ public class ZegumApplication {
     @Parameter(names = {"--server", "-s"}, description = "Zegum server ip")
     private String server = "zmile-back.gq:8080";
 
-    public static void main(final String... argv) throws URISyntaxException, IOException, InterruptedException {
+    public static void main(String... argv) throws URISyntaxException, IOException, InterruptedException {
         ZegumApplication main = new ZegumApplication();
         // parse input arguments to private variables
         JCommander.newBuilder().addObject(main).build().parse(argv);
@@ -51,32 +38,17 @@ public class ZegumApplication {
     }
 
     private void run() throws URISyntaxException, IOException, InterruptedException {
-        // server URI
-        final URI zmileServerUri = new URI("http://" + server + "/");
+        // SERVICE
+        SERVER_URI = new URI("http://" + server + "/");
+        USER_NAME = this.login;
+        PASSWORD = this.password;
+        // SERVO
+        PUSH_ANGLE = this.pushAngle;
+        PULL_ANGLE = this.pullAngle;
+        INITIALIZE = this.initialize;
 
-        // backend services
-        final Authentication authentication = new JwtAuthentication(zmileServerUri, login, password);
-        final Recognition recognition = new ZegumRecognition(zmileServerUri, authentication);
-
-        final Environment environment = environmentType.equals(EnvironmentType.RASPBERRY)
-                ? new RaspberryEnvironment(new RotationParameters(pushAngle, pullAngle))
-                : new DesktopEnvironment();
-        if (initialize)
-            environment.initialize();
-
-        ResizableFrame resizableFrame = new ResizableFrame(new Dimension(480, 320), environmentType.equals(EnvironmentType.RASPBERRY));
-        // create frame's carousel
-        FramesCarousel framesCarousel =
-            new FramesCarousel(
-                new Carousel(
-                    new Greeting(resizableFrame, environment.camera()),
-                    new Countdown(resizableFrame, environment.camera()),
-                    new Spinner(resizableFrame, environment.camera(), recognition),
-                    new Processed(resizableFrame, environment.servo(), recognition)
-                ));
-
-        //carousel.stream
-        framesCarousel.createComponents();
-        framesCarousel.firstItem().show();
+        Navigator navigator = new Navigator(initialize, environmentType);
+        navigator.frames.forEach(Frame::createComponents);
+        navigator.frames.get(0).showFrame();
     }
 }
